@@ -3,131 +3,165 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>CTtransit</title>
+<title>Transit Ticket (Sample)</title>
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 
 <style>
   body {
     margin: 0;
-    background: #f5f5f5;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial;
-    color: #333;
+    background: #f2f2f2;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;
+    color: #111;
+  }
+
+  .status-bar {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 12px;
+    font-size: 14px;
+    font-weight: 600;
+    background: #f2f2f2;
   }
 
   .container {
-    padding: 20px;
+    padding: 16px;
+    position: relative;
   }
 
   .title {
     font-size: 26px;
-    font-weight: 600;
+    font-weight: 700;
   }
 
   .subtitle {
-    color: #777;
-    margin-top: 5px;
+    color: #8c8c8c;
+    font-size: 15px;
+    margin-top: 4px;
   }
 
   .center {
     display: flex;
     justify-content: center;
-    margin: 40px 0;
+    margin: 50px 0 30px;
   }
 
   .ring {
-    width: 180px;
-    height: 180px;
+    width: 210px;
+    height: 210px;
     border-radius: 50%;
-    border: 14px solid #3F9E7C; /* EXACT GREEN */
+    border: 18px solid #3F9E7C;
     display: flex;
     align-items: center;
     justify-content: center;
-    animation: blink 1.2s infinite ease-in-out;
-    background: white;
+    background: #fff;
+    animation: pulse 1.8s infinite ease-in-out;
   }
 
   .logo {
-    font-weight: 600;
-    font-size: 18px;
+    font-weight: 700;
+    font-size: 20px;
   }
 
   .time {
-    font-size: 42px;
+    font-size: 44px;
     font-weight: 700;
     text-align: center;
   }
 
   .card {
     background: #fff;
-    margin: 20px;
-    padding: 16px;
-    border-radius: 10px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    margin: 20px 10px;
+    padding: 18px;
+    border-radius: 14px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
   }
 
   .card-title {
     font-size: 20px;
-    font-weight: 600;
+    font-weight: 700;
   }
 
   .locations {
     font-size: 14px;
     color: #666;
-    margin-top: 6px;
+    margin-top: 8px;
+    line-height: 1.4;
   }
 
   .expiry {
-    margin-top: 10px;
+    margin-top: 12px;
     font-weight: 600;
   }
 
-  @keyframes blink {
-    0%   { opacity: 1; }
-    50%  { opacity: 0.35; }
-    100% { opacity: 1; }
+  /* Watermark */
+  .watermark {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    font-size: 12px;
+    color: rgba(0,0,0,0.4);
+  }
+
+  @keyframes pulse {
+    0%   { opacity: 1; transform: scale(1); }
+    50%  { opacity: 0.3; transform: scale(1.035); }
+    100% { opacity: 1; transform: scale(1); }
   }
 </style>
 </head>
 
 <body>
 
+<div class="status-bar">
+  <div id="statusTime"></div>
+  <div>Demo Mode</div>
+</div>
+
 <div class="container">
-  <div class="title">CTtransit</div>
-  <div class="subtitle">Show operator your ticket</div>
+  <div class="title">Transit Ticket</div>
+  <div class="subtitle">Sample display — not a valid ticket</div>
 
   <div class="center">
     <div class="ring">
-      <div class="logo">CT transit</div>
+      <div class="logo">Sample</div>
     </div>
   </div>
 
   <div class="time" id="time"></div>
 
   <div class="card">
-    <div class="card-title">Adult 2 Hour - Local Service</div>
+    <div class="card-title">2 Hour - Local Service</div>
     <div class="locations">
-      Hartford, New Haven, Stamford, Bristol, Meriden, New Britain, Wallingford, and Waterbury
+      Example cities listed for UI demonstration purposes only
     </div>
     <div class="expiry" id="expiry"></div>
   </div>
 </div>
 
+<div class="watermark">NOT VALID • SAMPLE UI</div>
+
 <script>
   function updateTime() {
     const now = new Date();
 
-    // Current time display
     document.getElementById("time").innerText =
       now.toLocaleTimeString('en-US');
 
-    // Expiry = +2 hours
+    document.getElementById("statusTime").innerText =
+      now.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+
     const expiry = new Date(now.getTime() + 2 * 60 * 60 * 1000);
 
     document.getElementById("expiry").innerText =
-      "Expires " + expiry.toLocaleDateString('en-US', {
+      "Expires " +
+      expiry.toLocaleDateString('en-US', {
         month: 'short',
         day: 'numeric',
         year: 'numeric'
-      }) + " at " +
+      }) +
+      " at " +
       expiry.toLocaleTimeString('en-US', {
         hour: 'numeric',
         minute: '2-digit'
