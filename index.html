@@ -2,9 +2,10 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Transit Ticket (Sample)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<title>CTtransit</title>
 
+<!-- Makes it app-like -->
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 
@@ -16,6 +17,7 @@
     color: #111;
   }
 
+  /* 🔥 Fake status bar */
   .status-bar {
     display: flex;
     justify-content: space-between;
@@ -27,7 +29,6 @@
 
   .container {
     padding: 16px;
-    position: relative;
   }
 
   .title {
@@ -47,6 +48,7 @@
     margin: 50px 0 30px;
   }
 
+  /* 🔥 PERFECT RING */
   .ring {
     width: 210px;
     height: 210px;
@@ -59,9 +61,20 @@
     animation: pulse 1.8s infinite ease-in-out;
   }
 
+  /* 🔥 Logo style */
   .logo {
     font-weight: 700;
     font-size: 20px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .dot {
+    width: 10px;
+    height: 10px;
+    background: #3F9E7C;
+    border-radius: 50%;
   }
 
   .time {
@@ -95,15 +108,7 @@
     font-weight: 600;
   }
 
-  /* Watermark */
-  .watermark {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    font-size: 12px;
-    color: rgba(0,0,0,0.4);
-  }
-
+  /* 🔥 Realistic animation */
   @keyframes pulse {
     0%   { opacity: 1; transform: scale(1); }
     50%  { opacity: 0.3; transform: scale(1.035); }
@@ -116,31 +121,32 @@
 
 <div class="status-bar">
   <div id="statusTime"></div>
-  <div>Demo Mode</div>
+  <div>5G ▰▰▰▰ 🔋</div>
 </div>
 
 <div class="container">
-  <div class="title">Transit Ticket</div>
-  <div class="subtitle">Sample display — not a valid ticket</div>
+  <div class="title">CTtransit</div>
+  <div class="subtitle">Show operator your ticket</div>
 
   <div class="center">
     <div class="ring">
-      <div class="logo">Sample</div>
+      <div class="logo">
+        <div class="dot"></div>
+        CT transit
+      </div>
     </div>
   </div>
 
   <div class="time" id="time"></div>
 
   <div class="card">
-    <div class="card-title">2 Hour - Local Service</div>
+    <div class="card-title">Adult 2 Hour - Local Service</div>
     <div class="locations">
-      Example cities listed for UI demonstration purposes only
+      Hartford, New Haven, Stamford, Bristol, Meriden, New Britain, Wallingford, and Waterbury
     </div>
     <div class="expiry" id="expiry"></div>
   </div>
 </div>
-
-<div class="watermark">NOT VALID • SAMPLE UI</div>
 
 <script>
   function updateTime() {
