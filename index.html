@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>CTtransit</title>
+
+<style>
+  body {
+    margin: 0;
+    background: #f5f5f5;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial;
+    color: #333;
+  }
+
+  .container {
+    padding: 20px;
+  }
+
+  .title {
+    font-size: 26px;
+    font-weight: 600;
+  }
+
+  .subtitle {
+    color: #777;
+    margin-top: 5px;
+  }
+
+  .center {
+    display: flex;
+    justify-content: center;
+    margin: 40px 0;
+  }
+
+  .ring {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    border: 14px solid #3F9E7C; /* EXACT GREEN */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: blink 1.2s infinite ease-in-out;
+    background: white;
+  }
+
+  .logo {
+    font-weight: 600;
+    font-size: 18px;
+  }
+
+  .time {
+    font-size: 42px;
+    font-weight: 700;
+    text-align: center;
+  }
+
+  .card {
+    background: #fff;
+    margin: 20px;
+    padding: 16px;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  }
+
+  .card-title {
+    font-size: 20px;
+    font-weight: 600;
+  }
+
+  .locations {
+    font-size: 14px;
+    color: #666;
+    margin-top: 6px;
+  }
+
+  .expiry {
+    margin-top: 10px;
+    font-weight: 600;
+  }
+
+  @keyframes blink {
+    0%   { opacity: 1; }
+    50%  { opacity: 0.35; }
+    100% { opacity: 1; }
+  }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <div class="title">CTtransit</div>
+  <div class="subtitle">Show operator your ticket</div>
+
+  <div class="center">
+    <div class="ring">
+      <div class="logo">CT transit</div>
+    </div>
+  </div>
+
+  <div class="time" id="time"></div>
+
+  <div class="card">
+    <div class="card-title">Adult 2 Hour - Local Service</div>
+    <div class="locations">
+      Hartford, New Haven, Stamford, Bristol, Meriden, New Britain, Wallingford, and Waterbury
+    </div>
+    <div class="expiry" id="expiry"></div>
+  </div>
+</div>
+
+<script>
+  function updateTime() {
+    const now = new Date();
+
+    // Current time display
+    document.getElementById("time").innerText =
+      now.toLocaleTimeString('en-US');
+
+    // Expiry = +2 hours
+    const expiry = new Date(now.getTime() + 2 * 60 * 60 * 1000);
+
+    document.getElementById("expiry").innerText =
+      "Expires " + expiry.toLocaleDateString('en-US', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric'
+      }) + " at " +
+      expiry.toLocaleTimeString('en-US', {
+        hour: 'numeric',
+        minute: '2-digit'
+      });
+  }
+
+  setInterval(updateTime, 1000);
+  updateTime();
+</script>
+
+</body>
+</html>
